@@ -85,6 +85,10 @@ function App() {
     "Origin Hero"
   ];
 
+  const position = [
+    "GK", "RB", "CB", "LB", "CDM", "RM", "CM", "LM", "CF", "RW", "ST", "LW"
+  ];
+  
   const chemistryStyle = [
     "Sniper",
     "Finisher",
@@ -155,6 +159,7 @@ function App() {
 
   const [filters, setFilters] = useState({
     rarity: '',
+    position: '',
     chemistryStyle: '',
     country: '',
     maxPrice: ''
@@ -162,7 +167,27 @@ function App() {
 
   const handleSearch = () => {
     console.log('Filters:', filters);
-    // Here you can add logic to handle the search action, such as making an API call
+    
+    fetch('http://localhost:5000/search', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(filters)
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log('Response from backend:', data);
+        
+      })
+      .catch(error => {
+        console.error('Error sending filters to backend:', error);
+      });
   };
 
   const handleChange = (e) => {
@@ -180,19 +205,25 @@ function App() {
       </header>
       <div className="filter-container">
         <select name="rarity" className="filter-dropdown" onChange={handleChange}>
-          <option value="">Select Rarity</option>
+          <option value="">Rarity</option>
           {rarity.map((item, index) => (
             <option key={index} value={item}>{item}</option>
           ))}
         </select>
+        <select name="position" className="filter-dropdown" onChange={handleChange}>
+          <option value="">Position</option>
+          {position.map((pos, index) => (
+            <option key={index} value={pos}>{pos}</option>
+          ))}
+        </select>
         <select name="chemistryStyle" className="filter-dropdown" onChange={handleChange}>
-          <option value="">Select Chemistry Style</option>
+          <option value="">Chemistry Style</option>
           {chemistryStyle.map((style, index) => (
             <option key={index} value={style}>{style}</option>
           ))}
         </select>
         <select name="country" className="filter-dropdown" onChange={handleChange}>
-          <option value="">Select Country</option>
+          <option value="">Country</option>
           {countries.map((country, index) => (
             <option key={index} value={country}>{country}</option>
           ))}
