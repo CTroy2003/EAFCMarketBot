@@ -8,7 +8,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 from webdriver_manager.chrome import ChromeDriverManager
 import time
 
-def loginToTransferMarket(driver, email, password):
+def startLoginToTransferMarket(driver, email, password):
     try:
         
         driver.get("https://www.ea.com/ea-sports-fc/ultimate-team/web-app/")
@@ -56,14 +56,15 @@ def loginToTransferMarket(driver, email, password):
         send_code_button.click()
         print("Send Code button clicked!")
 
-        
-        user_code = input("Enter the 6-digit code from your email: ").strip()
+    except Exception as e:
+        print("Error in startLoginToTransferMarket:", e)
 
-        
+def continueLoginToTransferMarket(driver, two_factor_code):
+    try:
         two_factor_input = WebDriverWait(driver, 20).until(
             EC.presence_of_element_located((By.ID, "twoFactorCode"))
         )
-        two_factor_input.send_keys(user_code)
+        two_factor_input.send_keys(two_factor_code)
         print("Verification code entered!")
 
        
@@ -380,8 +381,14 @@ if __name__ == "__main__":
 
     try:
         
-        loginToTransferMarket(driver, "---", "---")  # Replace with your email/password
-
+        startLoginToTransferMarket(driver, "---", "---")
+        print("Please check your email for the verification code.")
+        
+        # Prompt user to enter the verification code manually.
+        two_factor_code = input("Enter the verification code: ")
+        
+        # Continue login using the provided 2FA code.
+        continueLoginToTransferMarket(driver, two_factor_code)
         
         while True:
             

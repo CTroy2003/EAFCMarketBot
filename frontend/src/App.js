@@ -167,27 +167,15 @@ function App() {
 
   const handleSearch = () => {
     console.log('Filters:', filters);
-    
-    fetch('http://localhost:5000/search', {
+    fetch('/search', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(filters)
-    })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return response.json();
-      })
-      .then(data => {
-        console.log('Response from backend:', data);
-        
-      })
-      .catch(error => {
-        console.error('Error sending filters to backend:', error);
-      });
+  })
+  .then(response => response.json())
+  .then(data => console.log("Data received:", data))
+  .catch(error => console.error("Error:", error));
+  
   };
 
   const handleChange = (e) => {
