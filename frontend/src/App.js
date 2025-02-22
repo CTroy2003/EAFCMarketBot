@@ -187,6 +187,22 @@ function App() {
     }));
   };
 
+  const handleLogin = () => {
+    fetch('https://eafcmarketbot.onrender.com/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({})
+    })
+    .then(response => response.json())
+    .then(data => {
+      alert(data.message); // Simple alert for now
+    })
+    .catch(error => {
+      console.error('Login error:', error);
+      alert('Failed to initiate login. Please try again.');
+    });
+  };
+
   return (
     <div className="App">
       <header className="App-header">
@@ -237,6 +253,12 @@ function App() {
         />
         <button onClick={handleSearch} className="filter-button">Search</button>
       </div>
+      <button 
+        onClick={handleLogin} 
+        className="login-button"
+      >
+        Login
+      </button>
     </div>
   );
 }
