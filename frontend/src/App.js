@@ -162,7 +162,8 @@ function App() {
     position: '',
     chemistryStyle: '',
     country: '',
-    maxPrice: ''
+    maxPrice: '',
+    verificationCode: ''
   });
 
   const handleSearch = () => {
@@ -223,6 +224,15 @@ function App() {
           placeholder="Max Price"
           min="0"
           max="10000000"
+          onChange={handleChange}
+        />
+        <input
+          type="number"
+          name="verificationCode"
+          className="filter-input"
+          placeholder="Verification Code"
+          min="100000"
+          max="999999"
           onChange={handleChange}
         />
         <button onClick={handleSearch} className="filter-button">Search</button>
