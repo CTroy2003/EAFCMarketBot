@@ -20,6 +20,10 @@ driver_sessions = {}
 EMAIL = "colintroy1@gmail.com"
 PASSWORD = "345Edward2003"
 
+@app.route('/')
+def home():
+    return jsonify({"status": "running", "message": "Flask server is up and running!"})
+
 @app.route('/login', methods=['POST'])
 def login():
     """
