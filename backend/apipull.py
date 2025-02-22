@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import time
+import os
 
 import marketpull  # Your automation functions
 
@@ -86,5 +87,5 @@ def search():
             del driver_sessions["default"]
 
 if __name__ == '__main__':
-    # Disable auto-reloader to preserve global variables on Render
-    app.run(debug=True, use_reloader=False, port=5000)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(debug=True, host="0.0.0.0", port=port)
