@@ -12,7 +12,7 @@ requirements.txt - list of necessary dependancies.
 
 Procfile - boilerplate for server deployment service (using Render here)
 
-index.js & index.css handle our frontend webpage and styling.
+app.js & app.css handle our frontend webpage and styling.
 
 NOTE: This is for personal testing and learning, please do not actually use this in any meaningful capacity, EA might ban your account if you do.
 
